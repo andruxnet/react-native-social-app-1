@@ -3,10 +3,12 @@
 import React from 'react'
 import { Component, View, StyleSheet, Text } from 'react-native'
 
+import Actions from 'Social/app/Actions'
 import Button from 'Social/app/views/Button'
 import LoadingView from 'Social/app/views/LoadingView'
 import StyleVars from 'Social/app/StyleVars'
 import SharedStyles from 'Social/app/SharedStyles'
+import Routes from 'Social/app/Routes'
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -28,6 +30,15 @@ export default class Home extends Component {
       loaded: false,
       failed: true
     }
+  }
+
+  componentWillMount() {
+    Actions.auth()
+  }
+
+  componentDidMount() {
+    Actions.loadUser.completed.listen(this._onLoadUserCompleted.bind(this))
+    Actions.logout.listen(this._onLogout.bind(this))
   }
 
   render() {
@@ -55,5 +66,11 @@ export default class Home extends Component {
 
   _retryFetch() {
 
+  }
+
+  _onLoadUserCompleted(user) {}
+
+  _onLogout() {
+    this.props.replaceRoute(Routes.login())
   }
 }
