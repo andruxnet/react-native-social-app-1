@@ -25,30 +25,30 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontFamily: StyleVars.Fonts.General,
+    fontFamily: StyleVars.Fonts.general,
     fontSize: 14,
     fontWeight: "400"
   }
-})
+});
 
-export default class Button extends Component {
+class Button extends Component {
   render() {
-    let textStyle = [styles.buttonText, this.props.textStyle]
+    let textStyle = [styles.buttonText, this.props.textStyle];
 
     return (
       <TouchableOpacity
         activeOpacity={this.props.activeOpacity}
         onPress={() => this.onPress()}
-        style={styles.button}>
-
-        <Text style={textStyle}>{ this.props.children }</Text>
+        style={[styles.button, this.props.style]}
+      >
+        <Text style={textStyle}>{this.props.children}</Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   onPress() {
     if (this.props.enabled) {
-      this.props.onPress()
+      this.props.onPress();
     }
   }
 }
@@ -56,17 +56,18 @@ export default class Button extends Component {
 Button.propTypes = {
   onPress: PropTypes.func,
   style: View.propTypes.style,
-  textStyle: View.propTypes.style,
+  textStyle: Text.propTypes.style,
   activeOpacity: PropTypes.number,
   enabled: PropTypes.bool,
   children: PropTypes.string
-}
+};
 
 Button.defaultProps = {
   onPress: () => {},
   style: {},
   textStyle: {},
   activeOpacity: 0.8,
-  enabled: {},
-  children: {}
-}
+  enabled: true
+};
+
+export default Button;
