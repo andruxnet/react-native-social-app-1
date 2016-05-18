@@ -7,6 +7,8 @@ import {
   Text,
 } from 'react-native'
 
+import Actions from 'Social/app/Actions'
+
 export default class LogoutButton extends React.Component {
   render() {
     let style = { marginLeft: 10, color: "white" };
@@ -23,6 +25,6 @@ export default class LogoutButton extends React.Component {
   }
 
   onPress() {
-    //log user out
+    Actions.logout()
   }
 }

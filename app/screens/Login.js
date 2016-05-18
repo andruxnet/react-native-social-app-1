@@ -17,6 +17,8 @@ import Reflux from 'reflux'
 import Actions from 'Social/app/Actions'
 import Button from 'Social/app/views/Button'
 import StyleVars from 'Social/app/StyleVars'
+import DataStore from 'Social/app/DataStore'
+import Routes from 'Social/app/Routes'
 
 const windowWidth = Dimensions.get("window").width
 const windowHeight = Dimensions.get("window").height
@@ -212,7 +214,7 @@ export default class Login extends Component {
           />
         </View>
         { passwordConfirmationField }
-        <View style={styles.loginButtonContainer}>
+        <View style={ styles.loginButtonContainer }>
           <Button
             onPress={ () => this.submitForm() }
             textStyle={ {fontSize: 14} }
@@ -241,14 +243,12 @@ export default class Login extends Component {
       })
     }
   }
+
   changeSignup() {
     this.setState({ isSignup: !this.state.isSignup })
   }
+
   onLoadUserCompleted(user) {
-    if (user.onboarded) {
-      this.props.replaceRoute(Routes.home())
-    } else {
-      this.props.replaceRoute(Routes.onboarding(user))
-    }
+    this.props.replaceRoute(Routes.home())
   }
 }
